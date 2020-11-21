@@ -9,7 +9,7 @@ const server = http.createServer(app);
 const userRoute = require('./api/routes/users');
 const employeeRoutes = require('./api/routes/employee');
 const checkAuth = require('./api/middleware/check-auth');
-
+var fs = require('fs');
 // db connection
 mongoose.connect('mongodb+srv://amit_shinde:amit_shinde@cluster0-bzohy.mongodb.net/test?retryWrites=true&w=majority',
   {
@@ -22,6 +22,9 @@ server.listen(port, function () {
 });
 
 //Morgan for logs
+app.use(morgan('common', {
+  stream: fs.createWriteStream('./access.log', {flags: 'a'})
+}));
 app.use(morgan('dev'));
 
 // to pasre JSON body
