@@ -23,7 +23,7 @@ server.listen(port, function () {
 
 //Morgan for logs
 app.use(morgan('common', {
-  stream: fs.createWriteStream('./access.log', {flags: 'a'})
+  stream: fs.createWriteStream('./access.log', { flags: 'a' })
 }));
 app.use(morgan('dev'));
 

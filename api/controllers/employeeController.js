@@ -30,7 +30,7 @@ exports.getEmployees = async (req, res, next) => {
     const page = req.params.page;
     const skip = page * 10;
     const totalCount = await EmployeeSchema.find({ manager: req.currentUser._id, status: 'ACTIVE' }).count()
-    EmployeeSchema.find({ manager: req.currentUser._id, status: 'ACTIVE' }).populate('manager').skip(skip).limit(10).sort({ 'createdAt': -1 }).then(result => {
+    EmployeeSchema.find({ manager: req.currentUser._id, status: 'ACTIVE' }).populate('manager').sort({ 'firstName': 1, 'lastName': 1 }).skip(skip).limit(10).then(result => {
         res.status(201).json({ totalCount: totalCount, employees: result });
     }).catch(err => {
         res.status(401).json(err);
